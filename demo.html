@@ -93,7 +93,9 @@ table.sheet td.sel{outline:2px solid var(--sel);outline-offset:-2px}
   display:flex;justify-content:space-between;align-items:baseline}
 .hud .res b{font:700 15px var(--mono);color:var(--xl-deep)}
 .hud.bare{width:210px}
-body.bare .ctl{top:auto;bottom:40px;left:12px;right:auto}
+/* Vergleichskarten: Play unterhalb des Menuebands im freien Bereich rechts,
+   damit kein Menuepunkt ueberlagert wird */
+body.bare .ctl{top:40px;right:10px}
 .hud .note{margin-top:6px;color:#8a9099;line-height:1.35;font-size:11px}
 
 /* ---------- Peacock: Arme + Konvergenzpunkt ---------- */
@@ -105,20 +107,26 @@ g.callout .co-label{fill:var(--ink);font:400 12px var(--font);pointer-events:non
 g.callout .co-chevron{fill:#445;font-size:9px;font-weight:700;pointer-events:none}
 g.callout:hover .co-body{fill:var(--hov);stroke:var(--hov-line)}
 g.callout.on .co-body{fill:var(--sel);stroke:var(--sel-deep)}
+g.callout.on.past .co-body{fill:#79a9d9;stroke:#6497cb}
 g.callout.on .co-label,g.callout.on .co-chevron{fill:#fff}
-g.callout.past .co-body{fill:#f4f6f7;stroke:#dfe3e5}
-g.callout.past .co-label{fill:#98a0a8}
+/* zurueckliegende Auswahl: gedaempftes Blau - der Pfad bleibt erkennbar,
+   der Fokus liegt auf der aktuellen Ebene */
+g.callout.past .co-body{fill:#79a9d9;stroke:#6497cb}
+g.callout.past .co-label,g.callout.past .co-chevron{fill:#fff}
+g.callout.past:hover .co-body{fill:#79a9d9;stroke:#6497cb}
 #cdotSvg .c-dot{fill:var(--sel);fill-opacity:.92;stroke:#fff;stroke-width:1.4;
   filter:drop-shadow(0 1px 3px rgba(0,0,0,.3));pointer-events:auto;cursor:pointer;
-  transform-box:fill-box;transform-origin:center;
-  transition:fill-opacity .12s,transform .12s,fill .12s,stroke .12s}
-#cdotSvg .c-dot:hover{fill-opacity:1;stroke-width:2;transform:scale(1.35)}
+  transition:fill-opacity .12s,fill .12s,stroke .12s,filter .12s}
+#cdotSvg .c-dot:hover{fill:#2f8fe6;fill-opacity:1;stroke-width:2;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.3)) drop-shadow(0 0 6px rgba(0,120,215,.85))}
 /* Punkt einer bereits durchlaufenen Ebene: blauer Ring in voller Groesse -
    liest sich als Station, zu der man zurueckspringen kann */
 #cdotSvg .c-dot.past{fill:#fff;fill-opacity:1;stroke:var(--sel);stroke-width:2}
-#cdotSvg .c-dot.past:hover{fill:var(--sel);stroke:#fff;transform:scale(1.35)}
+#cdotSvg .c-dot.past:hover{fill:var(--sel);stroke:#fff;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.3)) drop-shadow(0 0 6px rgba(0,120,215,.85))}
 #cdotSvg .c-hit{fill:transparent;pointer-events:auto;cursor:pointer}
-#cdotSvg .c-hit:hover + .c-dot{transform:scale(1.35)}
+#cdotSvg .c-hit:hover + .c-dot{fill:#2f8fe6;fill-opacity:1;stroke-width:2;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.3)) drop-shadow(0 0 6px rgba(0,120,215,.85))}
 
 /* ---------- Klassisch: Dropdown-Kaskade ---------- */
 .dd{position:absolute;z-index:30;background:#fff;border:1px solid var(--line-2);
@@ -127,6 +135,7 @@ g.callout.past .co-label{fill:#98a0a8}
   padding:5px 12px;cursor:pointer;white-space:nowrap;font-size:13px}
 .dd .it:hover{background:var(--hov)}
 .dd .it.on{background:var(--sel);color:#fff}
+.dd .it.on.past{background:#79a9d9}
 .dd .it .ch{font-size:9px;font-weight:700;opacity:.65}
 .dd .it.dis{color:#a9afb5;cursor:default}
 .dd .sep{height:1px;background:var(--line);margin:3px 0}
@@ -265,7 +274,10 @@ const state={openTab:null, selection:[], clickC:[], page:[], ctx:null};
 
 /* ============================ Tabellenblatt ============================ */
 (function sheet(){
-  const cols=['A','B','C','D','E','F','G','H','I','J','K','L','M','N'];
+  /* In den schmalen Vergleichskarten weniger Spalten - sonst werden die Werte
+     abgeschnitten. Die Datenspalten A-F bleiben vollstaendig erhalten. */
+  const cols=BARE?['A','B','C','D','E','F','G','H']
+                 :['A','B','C','D','E','F','G','H','I','J','K','L','M','N'];
   const data={
     'A2':['Region','b'],'B2':['Q1','b'],'C2':['Q2','b'],'D2':['Q3','b'],'E2':['Q4','b'],'F2':['Summe','b'],
     'A3':['Nord'],'B3':['12.400','num'],'C3':['13.910','num'],'D3':['14.220','num'],'E3':['15.870','num'],'F3':['56.400','num'],
@@ -407,8 +419,8 @@ function layoutLevel(C, items, bounds){
   const roomDown=bounds.h-MARGIN-C.y, roomUp=C.y-yMin-MARGIN;
   const vdir=(roomDown>=needH)?+1:((roomUp>=needH)?-1:(roomDown>=roomUp?+1:-1));
 
-  const offMax=Math.max(OFF_MIN,(twoSided?Math.min(roomL,roomR)+SHIFT_X_MAX:Math.max(roomL,roomR))-W);
-  const offFor=r=>Math.min(offMax, Math.max(OFF_MIN, off0-r*step));
+  const offMax=Math.max(OFF_MIN,(twoSided?Math.min(roomL,roomR):Math.max(roomL,roomR))-W);
+  const offFor=r=>Math.max(OFF_MIN, Math.min(off0,offMax)-r*step);
 
   const out=[];
   const place=(arr,side)=>arr.forEach((it,r)=>{
@@ -448,7 +460,7 @@ function layoutLevel(C, items, bounds){
    Blasenmaße, Armbreite und Konvergenzpunkt sind in allen Fällen identisch. */
 function layoutRadial(C, items, bounds){
   const n=items.length, H=bubbleH(), W=levelWidth();
-  const RX=OFF_0+W/2, RY=OFF_0+H/2+14;          /* Ellipse: waagerecht weiter als senkrecht */
+  const RX=OFF_0+W/2, RY=OFF_0+H/2+27;          /* Ellipse: senkrecht weit genug, dass sich oben/unten nichts beruehrt */
   const yMin=bounds.yMin||0;
   const okL = C.x-(RX+W/2) >= MARGIN;
   const okR = C.x+(RX+W/2) <= bounds.w-MARGIN;
@@ -471,7 +483,7 @@ function layoutRadial(C, items, bounds){
     const axis=okR?+1:-1;
     const sV=H+4;                               /* gleichmäßiger Zeilenabstand */
     const span=(n-1)*sV;                        /* Höhe des Fächers (Mitte zu Mitte) */
-    const RY2=span/2+10, RX2=RX*1.35;           /* Halbellipse: hoch und leicht ausladend */
+    const RY2=span/2+10, RX2=RX*1.05;           /* Halbellipse flach: Boxen ruecken zum Zentrum */
     const fitV = (C.y-(span/2+H/2) >= yMin+MARGIN) && (C.y+span/2+H/2 <= bounds.h-MARGIN);
     const fitF = (axis>0) ? (C.x+RX2+W/2 <= bounds.w-MARGIN) : (C.x-RX2-W/2 >= MARGIN);
     /* Überhang der äußersten Blasen zur Randseite hin */
@@ -493,13 +505,12 @@ function layoutRadial(C, items, bounds){
   return null;
 }
 
-/* Seitenweise Anzeige: PAGE-1 Eintraege plus Blaetter-Eintrag */
+/* Mehr als PAGE Eintraege: die ersten PAGE-1 direkt, der Rest haengt als Unterebene
+   am Eintrag "(Weitere Eintraege)" - der Klickpunkt darauf wird zum neuen
+   Konvergenzpunkt, exakt wie bei jedem anderen Untermenue (Peacock-Logik). */
 function pageItems(items,depth){
   if(items.length<=PAGE) return items;
-  const per=PAGE-1, pages=Math.ceil(items.length/per);
-  const pg=((state.page[depth]||0)%pages+pages)%pages;
-  const slice=items.slice(pg*per,pg*per+per);
-  return slice.concat([{id:'__more__',label:MORE,__more:true,__depth:depth,__pages:pages}]);
+  return items.slice(0,PAGE-1).concat([{id:'__more__',label:MORE,children:items.slice(PAGE-1)}]);
 }
 
 function buildLevels(bounds){
@@ -541,7 +552,7 @@ function renderPeacock(){
        Punkte gut klickbar sind */
     const hit=document.createElementNS(NS,'circle');
     hit.setAttribute('cx',n(lvl.C.x));hit.setAttribute('cy',n(lvl.C.y));
-    hit.setAttribute('r','16');hit.setAttribute('class','c-hit');
+    hit.setAttribute('r','9');hit.setAttribute('class','c-hit');
     const c=document.createElementNS(NS,'circle');
     c.setAttribute('cx',n(lvl.C.x));c.setAttribute('cy',n(lvl.C.y));
     c.setAttribute('r',String(DOT_R));
@@ -557,7 +568,7 @@ function renderPeacock(){
   levels.forEach((lvl,li)=>lvl.placements.forEach(p=>{
     const last=(li===levels.length-1);
     const g=document.createElementNS(NS,'g');
-    g.setAttribute('class','callout'+(!last?' past':''));
+    g.setAttribute('class','callout'+(!last?' past':'')+(p.item.id===lvl.selectedId?' on':''));
     g.dataset.level=li;g.dataset.id=p.item.id;
     const path=document.createElementNS(NS,'path');
     path.setAttribute('d',calloutPath(p.cx,p.cy,p.w,p.h,lvl.C));
@@ -595,7 +606,8 @@ function renderClassic(){
     const dd=document.createElement('div');dd.className='dd';dd.dataset.level=depth;
     items.forEach(it=>{
       const row=document.createElement('div');
-      row.className='it'+(state.selection[depth]===it.id?' on':'');
+      const isSel=(state.selection[depth]===it.id);
+      row.className='it'+(isSel?' on':'')+((isSel&&it.children&&state.selection.length>depth+1)?' past':'');
       row.innerHTML='<span>'+it.label+'</span>'+(it.children?'<span class="ch">\u25B6</span>':'');
       const d=depth, item=it;
       row.addEventListener('click',ev=>{ev.stopPropagation();choose(item,d,toStage(ev));});
@@ -641,7 +653,6 @@ function backToLevel(li){
   render();
 }
 function choose(item,depth,pt){
-  if(item.__more){ state.page[item.__depth]=(state.page[item.__depth]||0)+1; render(); return; }
   state.selection=state.selection.slice(0,depth);
   state.clickC=state.clickC.slice(0,depth);
   state.page=state.page.slice(0,depth+1);

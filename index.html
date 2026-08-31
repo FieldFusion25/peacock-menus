@@ -32,6 +32,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
+section,#demo,#vergleich,#mechanismus,#gesundheit,#patent,#kontakt{scroll-margin-top:65px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} .draw{animation:none !important;stroke-dashoffset:0 !important} .reveal{opacity:1 !important;transform:none !important;transition:none !important}}
 body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.6;font-size:17px}
 a{color:var(--green-deep)}
@@ -79,7 +80,8 @@ h1 .pk-name{background:var(--pk-grad);-webkit-background-clip:text;background-cl
 .hero p.lead{margin:26px auto 0;font-size:clamp(17px,1.6vw,20.5px);line-height:1.7;color:var(--ink-soft);max-width:78ch;text-align:justify;text-align-last:center}
 
 /* Hero-Bildband — atmosphärisches Designelement, ca. 25% der Hero-Höhe */
-.hero-band-wrap{margin-top:auto;width:100%;height:clamp(150px,24vh,320px);position:relative;overflow:hidden;
+.hero-band-wrap{margin-top:auto;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);
+  height:clamp(150px,24vh,320px);position:relative;overflow:hidden;
   -webkit-mask-image:linear-gradient(to bottom,transparent,black 18%,black 82%,transparent);
   mask-image:linear-gradient(to bottom,transparent,black 18%,black 82%,transparent)}
 .hero-band-wrap svg{position:absolute;inset:0;width:100%;height:100%;display:block}
@@ -129,6 +131,9 @@ h2{font-family:var(--disp);font-weight:700;font-size:clamp(24px,3vw,34px);margin
 
 /* Live-Vergleich-Intro: identisch zu Hero/Live-Demo (Breite, Zentrierung, Blocksatz, Typografie) */
 #vergleich>.wrap>.sec-eyebrow,#vergleich>.wrap>h2{text-align:center}
+#mechanismus>.wrap>.sec-eyebrow,#mechanismus>.wrap>h2,
+#gesundheit>.wrap>.sec-eyebrow,#gesundheit>.wrap>h2,
+#patent>.wrap>.sec-eyebrow,#patent>.wrap>h2{text-align:center}
 #vergleich>.wrap>.sec-lead{margin:26px auto 0;font-size:clamp(17px,1.6vw,20.5px);line-height:1.7;color:var(--ink-soft);
   max-width:78ch;text-align:justify;text-align-last:center}
 
@@ -241,16 +246,16 @@ blockquote .src{display:block;font-family:var(--mono);font-size:12px;color:var(-
 blockquote.pk{border-left-color:var(--pk-teal-deep);background:var(--pk-gold-soft)}
 
 /* RSI / Gesundheit */
-.rsi-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;margin-top:8px;align-items:stretch}
+.rsi-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;margin-top:8px;align-items:start}
 @media(max-width:900px){.rsi-grid{grid-template-columns:1fr}}
 .rsi-grid h3{font-family:var(--disp);font-size:17px;margin:22px 0 8px}
 .rsi-grid h3:first-child{margin-top:0}
 .rsi-grid p{color:var(--ink-soft);font-size:15.5px}
 .rsi-grid p+p{margin-top:12px}
-.rsi-side{border:1px solid var(--line);border-radius:12px;padding:22px;background:var(--panel);
+.rsi-side{border:1px solid var(--line);border-radius:12px;padding:20px 22px;background:var(--panel);position:sticky;top:86px;
   display:flex;flex-direction:column}
 .rsi-side-lead{color:var(--ink-soft);font-size:14.5px;line-height:1.6;margin:0 0 16px}
-.rsi-spacer{flex:1 1 auto;min-height:14px}
+.rsi-spacer{flex:0 0 auto;height:14px}
 @media(max-width:900px){.rsi-spacer{display:none}}
 .rsi-side h4{font-family:var(--disp);font-size:15.5px;margin-bottom:10px}
 .rsi-calc label{display:block;font-family:var(--mono);font-size:12px;color:var(--ink-soft);margin-bottom:6px}
@@ -282,12 +287,35 @@ blockquote.pk{border-left-color:var(--pk-teal-deep);background:var(--pk-gold-sof
 /* Investoren-Callout */
 .invest{margin-top:28px;border:1px solid var(--line);border-radius:12px;padding:26px;background:var(--pk-grad);color:#fff}
 .invest h3{font-family:var(--disp);font-size:20px;margin-bottom:10px}
-.invest p{opacity:.92;max-width:70ch}
+.invest p{opacity:.92;max-width:none}
 .invest-points{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .invest-points span{font-family:var(--mono);font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 12px}
 
 /* Kontakt / Footer */
 .contact-grid{display:flex;flex-wrap:wrap;gap:22px;margin-top:26px}
+/* Kontakt: Ueberschrift und Beschreibungstext zentriert untereinander; darunter
+   EINE Zeile aus drei gleich grossen Boxen: Ullmann, SolveTrail, Kontakt aufnehmen.
+   Die CTA-Box hat dieselben Masse wie die beiden Kontaktkarten. */
+#kontakt>.wrap>.sec-eyebrow,#kontakt>.wrap>h2{text-align:center}
+#kontakt>.wrap>p.sec-lead{margin:18px auto 0 !important;max-width:760px !important;text-align:center !important}
+@media(min-width:761px){
+  #kontakt .contact-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+    align-items:stretch;margin-top:30px}
+  #kontakt .contact-grid{display:contents}
+  #kontakt .contact-grid .c{margin:0;display:flex;flex-direction:column;justify-content:center}
+  #kontakt .contact-cta{margin:0;display:flex}
+  #kontakt .contact-cta .btn{flex:1;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;border-radius:10px;padding:22px 26px;font-size:16px;line-height:1.35}
+}
+@media(min-width:761px) and (max-width:1100px){
+  #kontakt .contact-row{gap:14px}
+  #kontakt .contact-grid .c{padding:18px 18px}
+  #kontakt .contact-cta .btn{padding:18px 14px;font-size:14.5px}
+}
+@media(max-width:760px){
+  #kontakt .contact-row{margin-top:6px}
+  #kontakt .contact-cta{text-align:center;margin-top:22px}
+}
 .contact-grid .c{flex:0 1 auto;border:1px solid var(--line);border-radius:10px;padding:22px 26px;background:#fff}
 .contact-grid .role{font-family:var(--mono);font-size:12px;color:var(--pk-teal-deep);letter-spacing:.06em}
 .contact-grid h3{font-family:var(--disp);font-size:19px;margin:6px 0 4px}
@@ -334,7 +362,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
       <nav>
         <!-- ✏️ 04 · Navigationslinks (nur Text ändern, nicht die #-Anker) -->
         <a href="#demo">Live-Demo</a>
-        <a href="#vergleich">Vergleich</a>
+        <a href="#vergleich">Live-Vergleich</a>
+        <a href="#mechanismus">Mechanismus</a>
         <a href="#gesundheit">Gesundheit</a>
         <a href="#patent">Patent</a>
         <a href="#kontakt">Kontakt</a>
@@ -396,7 +425,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
             <!-- ✏️ 11 · Die drei Schritt-Chips über der Demo -->
             <span class="chip"><b>1</b>&nbsp; Menüpunkt klicken (z.&#8201;B. Einfügen)</span>
             <span class="chip"><b>2</b>&nbsp; Eintrag oder Arm wählen</span>
-            <span class="chip"><b>3</b>&nbsp; „(Weitere Einträge)" blättert</span>
+            <span class="chip"><b>3</b>&nbsp; „(Weitere Einträge)" öffnet die Restlichen am Klickpunkt</span>
           </div>
           <a class="btn ghost demo-fullscreen" href="demo.html" target="_blank" rel="noopener" style="padding:7px 14px;font-size:13.5px">Vollbild ↗</a>
         </div>
@@ -423,7 +452,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
           <figure class="lv-shot">
             <iframe class="lv-demo" data-demo="classic" title="Live-Demo: klassische Kaskadennavigation, identischer Vorgang" loading="lazy"></iframe>
           </figure>
-          <div class="lv-step-label">Kaskaden-Dropdown · <b>&#9654; Play</b> startet den Messlauf, ein zweiter Klick stoppt ihn</div>
+          <div class="lv-step-label"><b>&#9654; Play</b> startet den Messlauf, ein zweiter Klick stoppt ihn.</div>
         </div>
         <!-- Peacock Menus: identischer Vorgang, Klicks am Armanfang nahe dem Konvergenzpunkt -->
         <div class="lv-col" data-side="peacock">
@@ -434,10 +463,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
           <figure class="lv-shot">
             <iframe class="lv-demo" data-demo="peacock" title="Live-Demo: Peacock Menus, identischer Vorgang" loading="lazy"></iframe>
           </figure>
-          <div class="lv-step-label">Patentierte Navigation · identischer Vorgang, Klicks am Armanfang nahe dem Konvergenzpunkt</div>
+          <div class="lv-step-label"><b>&#9654; Play</b> startet den Messlauf, ein zweiter Klick stoppt ihn.</div>
         </div>
       </div>
-      <p class="lv-repro">Beide Fenster sind derselbe interaktive Prototyp wie in der <a href="#demo">Live-Demo</a> — dieselbe Menüstruktur, links auf die klassische Kaskade festgelegt, rechts auf Peacock Menus. Sie können darin auch selbst klicken.</p>
 
 
       <!-- Business Case: Hochrechnung auf Basis der oben live gemessenen Zeitersparnis -->
@@ -461,7 +489,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
   <section id="mechanismus">
     <div class="wrap reveal">
       <!-- ✏️ 15 · Mechanismus-Abschnitt: Eyebrow + Überschrift -->
-      <div class="sec-eyebrow">DER MECHANISMUS</div>
+      <div class="sec-eyebrow">MECHANISMUS</div>
       <h2>Die Funktionsweise des Peacock Menus basiert auf drei zentralen Prinzipien.</h2>
       <div class="mech">
         <div class="card">
@@ -486,7 +514,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
   <section id="gesundheit">
     <div class="wrap reveal">
       <!-- ✏️ 21 · Gesundheits-Abschnitt: Eyebrow + Überschrift -->
-      <div class="sec-eyebrow">ERGONOMIE &amp; GESUNDHEIT</div>
+      <div class="sec-eyebrow">GESUNDHEIT</div>
       <h2>Weniger Zeigerweg, weniger Belastung</h2>
       <div class="rsi-grid">
         <div>
@@ -532,7 +560,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
   <section id="patent">
     <div class="wrap reveal">
       <!-- ✏️ 22 · Patent-Abschnitt: Eyebrow + Überschrift -->
-      <div class="sec-eyebrow">SCHUTZRECHT</div>
+      <div class="sec-eyebrow">PATENT</div>
       <h2>Patentfakten</h2>
       <!-- ✏️ 23 · Patent-Fakten-Tabelle (jeweils Bezeichnung .k und Wert .v) -->
       <div class="facts">
@@ -587,27 +615,29 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
   <section id="kontakt">
     <div class="wrap reveal">
       <!-- ✏️ 24 · Kontakt-Abschnitt: Eyebrow + Überschrift + Einleitung -->
-      <div class="sec-eyebrow">LIZENZIERUNG &amp; INTEGRATION</div>
+      <div class="sec-eyebrow">KONTAKT</div>
       <h2>Gespräch aufnehmen</h2>
-      <p class="sec-lead">Der gezeigte Prototyp demonstriert Peacock Menus im LibreOffice-Calc-Kontext. Für Fragen zu Lizenzierung, Integration oder Investment in die Weiterentwicklung nehmen Sie gern Kontakt auf.</p>
-      <div class="contact-grid">
-        <div class="c">
-          <!-- ✏️ 25 · Kontaktkarte 1 (Rolle / Name / Ort) -->
-          <div class="role">PATENTINHABER</div>
-          <h3>Dr. Kay Dirk Ullmann</h3>
-          <p>Frankfurt am Main</p>
+      <p class="sec-lead">Sie möchten mehr über die Peacock Menus erfahren oder Möglichkeiten zur Lizenzierung, Integration oder Weiterentwicklung besprechen? Wir freuen uns auf den persönlichen Austausch mit Ihnen.</p>
+      <div class="contact-row">
+        <div class="contact-grid">
+          <div class="c">
+            <!-- ✏️ 25 · Kontaktkarte 1 (Rolle / Name / Ort) -->
+            <div class="role">PATENTINHABER</div>
+            <h3>Dr. Kay Dirk Ullmann</h3>
+            <p>Frankfurt am Main</p>
+          </div>
+          <div class="c">
+            <!-- ✏️ 26 · Kontaktkarte 2 (Rolle / Name / Beschreibung) -->
+            <div class="role">ENTWICKLUNGSPARTNER</div>
+            <h3>SolveTrail GbR</h3>
+            <p>Prototyping &amp; Softwareentwicklung</p>
+          </div>
         </div>
-        <div class="c">
-          <!-- ✏️ 26 · Kontaktkarte 2 (Rolle / Name / Beschreibung) -->
-          <div class="role">ENTWICKLUNGSPARTNER</div>
-          <h3>SolveTrail GbR</h3>
-          <p>Prototyping &amp; Softwareentwicklung</p>
+        <!-- ✏️ 26b · Kontakt-CTA: dritte Box in derselben Zeile, gleiche Masse -->
+        <div class="contact-cta">
+          <a class="btn primary" id="ctaMail" href="#kontakt" rel="nofollow" data-u="ofni" data-d="sunemkcocaep" data-t="moc">Kontakt aufnehmen&#8201;<span class="cta-addr">E-Mail wird geladen&#8230;</span></a>
+          <noscript><div style="margin-top:10px;font-size:14.5px;color:var(--ink-soft)">E-Mail: info&#8201;[at]&#8201;peacockmenus&#8201;[Punkt]&#8201;com</div></noscript>
         </div>
-      </div>
-      <!-- ✏️ 26b · Kontakt-CTA -->
-      <div class="contact-cta">
-        <a class="btn primary" id="ctaMail" href="#kontakt" rel="nofollow" data-u="ofni" data-d="sunemkcocaep" data-t="moc">Kontakt aufnehmen&#8201;→&#8201;<span class="cta-addr">E-Mail wird geladen&#8230;</span></a>
-        <noscript><div style="margin-top:10px;font-size:14.5px;color:var(--ink-soft)">E-Mail: info&#8201;[at]&#8201;peacockmenus&#8201;[Punkt]&#8201;com</div></noscript>
       </div>
     </div>
   </section>
