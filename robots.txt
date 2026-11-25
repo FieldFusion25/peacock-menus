@@ -1,0 +1,11 @@
+# robots.txt · www.peacockmenus.com
+# Alle Crawler zugelassen, auch KI-Suchsysteme und KI-Crawler
+# (OAI-SearchBot, ChatGPT-User, GPTBot, PerplexityBot, Claude-SearchBot, ClaudeBot, Google-Extended, Bingbot).
+# Hinweis: Eine eigene "User-agent: <Bot>"-Gruppe ersetzt für diesen Bot die *-Gruppe vollständig.
+# Neue Gruppen daher nur anlegen, wenn ein Bot bewusst anders behandelt werden soll.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.peacockmenus.com/sitemap.xml
+
+# Kuratierte Übersicht für KI-Systeme: https://www.peacockmenus.com/llms.txt

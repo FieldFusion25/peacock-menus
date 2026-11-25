@@ -2,6 +2,11 @@
 <html lang="de"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Peacock Menus · Interaktiver Klickdummy</title>
+<!-- SEO: Der Klickdummy wird in index.html per iframe eingebettet. Er soll nicht als eigene,
+     textarme Seite in der Suche erscheinen, sondern nur als Teil von www.peacockmenus.com.
+     "indexifembedded" erlaubt Google, den Inhalt eingebettet in der Hauptseite zu werten. -->
+<meta name="robots" content="noindex, follow">
+<meta name="googlebot" content="noindex, indexifembedded">
 <style>
 :root{
   --font:"Segoe UI",-apple-system,Roboto,"Liberation Sans",Arial,sans-serif;

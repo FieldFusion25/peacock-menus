@@ -1,0 +1,42 @@
+# Peacock Menus
+
+> Peacock Menus ist eine patentierte Menünavigation von Dr. Kay Dirk Ullmann (Frankfurt am Main), geschützt durch EP 2 616 913 B1 und US 8,756,529 B2. Jede weitere Menüebene öffnet direkt am zuletzt ausgewählten Menüpunkt, die Einträge fächern sich um den Klickpunkt auf wie die Federn eines Pfauenrads. Im Messlauf des Prototyps sinkt der Mausweg um 88 Prozent und die Navigationsdauer um 30 Prozent (0,7 Sekunden je Vorgang). Prototyp und Live-Demo hat SolveTrail GbR aus Nürnberg entwickelt.
+
+## Kernfakten
+
+- Produkt: Peacock Menus™, Handelsname für das patentierte Call-out-Verfahren zur Menünavigation
+- Erfinder und Patentinhaber: Dr. Kay Dirk Ullmann, Frankfurt am Main
+- Entwicklungspartner: SolveTrail GbR, Nürnberg (Prototyping und Softwareentwicklung, Umsetzung des Patents in Software seit Juni 2026)
+- Prinzip: Jede Menüebene öffnet am zuletzt ausgewählten Menüpunkt statt am Anfang einer neuen Liste. Ausgewählt wird über die Beschriftung oder über den Führungsarm, die Anordnung passt sich an Anzahl der Einträge und freien Bildschirmraum an, überzählige Einträge bündelt ein Platzhalter-Element.
+- Einsatz: anwendungsunabhängig, integrierbar in jede grafische Oberfläche mit mehrstufigen Menüs
+- Status: funktionsfähiger Prototyp (Klickdummy) öffentlich im Browser, ohne Installation. Der Klickdummy bildet eine Tabellenkalkulation nach und ist keine LibreOffice-Software.
+
+## Messwerte
+
+- 88 Prozent kürzerer Mausweg, 30 Prozent kürzere Navigationsdauer, 0,7 Sekunden gespart je Vorgang
+- Grundlage: Messlauf im Prototyp für einen festgelegten Beispielpfad (Einfügen, Diagramm, Säule, Gestapelt), gemessen ab dem geöffneten Menü. Keine Feldstudie über viele Anwendungen und Nutzer.
+
+## Patent
+
+- Europa: EP 2 616 913 B1, erteilt am 02.07.2014 (Bulletin 2014/27)
+- USA: US 8,756,529 B2, erteilt am 17.06.2014
+- PCT / WO: PCT/EP2011/060724, WO 2012/034726
+- Internationale Klassifikation: G06F 3/0482
+- Titel: Method and Program for Menu Tree Visualisation and Navigation (DE: Verfahren und Programm für die Ansicht von Menübäumen und die Navigation durch Menübäume)
+- Umfang: 15 Patentansprüche. Geschützt ist der Verhaltensmechanismus (wandernder Konvergenzpunkt, Auswahl über Arm oder Blase, raumabhängige Anordnung, Platzhalter bei Überlauf), nicht einzelne Maße oder Stile.
+
+## Seiten
+
+- [Live-Demo](https://www.peacockmenus.com/#demo): Interaktiver Prototyp mit dynamischer Menüführung, direkt im Browser bedienbar.
+- [Live-Vergleich](https://www.peacockmenus.com/#vergleich): Derselbe Navigationsvorgang mit klassischem Kaskadenmenü und mit Peacock Menus, mit Messwerten und Hochrechnung auf den Arbeitstag.
+- [Mechanismus](https://www.peacockmenus.com/#mechanismus): Die drei Prinzipien des Verfahrens.
+- [Gesundheit](https://www.peacockmenus.com/#gesundheit): Weniger Zeigerweg bei Bildschirmarbeit, Einordnung in den ergonomischen Kontext (RSI). Peacock Menus ist kein Medizinprodukt.
+- [Patentfakten](https://www.peacockmenus.com/#patent): Veröffentlichungsnummern, Erteilung, Anspruchsübersicht, Informationen für Investoren und Lizenznehmer.
+- [Kontakt](https://www.peacockmenus.com/#kontakt): Anfragen zu Lizenzierung, Integration und Weiterentwicklung.
+
+## Entwicklung und Umsetzung
+
+- [SolveTrail](https://www.solvetrail.de/): Software- und IT-Dienstleister aus Nürnberg, Entwicklungspartner von Peacock Menus.
+- [Projektsteckbrief Peacock Menus](https://www.solvetrail.de/referenzen/peacock-menus/): Was SolveTrail für Peacock Menus gebaut hat.
+- [Fallstudie: Vom Patent zum Produkt](https://www.solvetrail.de/fallstudien/patent-zum-prototyp-peacock-menus/): Wie aus der Patentschrift ein Prototyp mit öffentlicher Live-Demo wurde, mit Zeitachse und Messlauf.
+- [Blogbeitrag: Das Menü kommt zur Maus](https://www.solvetrail.de/blog/peacock-menus-libreoffice-plugin-patent-umsetzung/): Fragen und Antworten zu Peacock Menus, Messlauf und Patent.
